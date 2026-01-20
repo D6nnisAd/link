@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect</title>
+    <style>
+        /* NEUTRAL MINIMALIST DESIGN */
+        body {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .wrapper {
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            padding: 40px 20px;
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .action-button {
+            display: block;
+            background-color: #000000; /* Neutral Black */
+            color: #ffffff;
+            text-decoration: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .action-button:active {
+            opacity: 0.8;
+        }
+
+        .footer-note {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <img src="https://img.icons8.com/ios-filled/100/000000/speech-bubble.png" class="icon" alt="Icon">
+
+        <h1>Continue to Chat</h1>
+        <p>Click the button below to open the secure messaging app.</p>
+
+        <a id="main-link" href="#" class="action-button">Continue</a>
+
+        <p class="footer-note">If the app doesn't open, please ensure you have it installed.</p>
+    </div>
+
+    <script>
+        // ==========================================
+        // CONFIGURATION SECTION
+        // ==========================================
+        
+        // 1. CHOOSE TYPE: Set this to "TG" for Telegram or "WA" for WhatsApp
+        var mode = "TG"; 
+
+        // 2. THE ID: 
+        // For TG: Use the hash (e.g., "qDwo1vX542U2MDc0")
+        // For WA: Use the phone number (e.g., "2348000000000")
+        var targetID = "qDwo1vX542U2MDc0";
+
+        // ==========================================
+        // REDIRECT LOGIC
+        // ==========================================
+
+        function getOS() {
+            var ua = navigator.userAgent || navigator.vendor || window.opera;
+            if (/android/i.test(ua)) return "Android";
+            if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return "iOS";
+            return "PC";
+        }
+
+        var os = getOS();
+        var btn = document.getElementById("main-link");
+        var finalUrl = "";
+
+        if (mode === "TG") {
+            // Telegram Logic
+            if (os === "Android") {
+                finalUrl = "intent://join?invite=" + targetID + "#Intent;scheme=tg;package=org.telegram.messenger;end";
+            } else {
+                finalUrl = "https://t.me/+" + targetID;
+            }
+        } else if (mode === "WA") {
+            // WhatsApp Logic
+            if (os === "Android") {
+                finalUrl = "intent://send?phone=" + targetID + "#Intent;scheme=whatsapp;package=com.whatsapp;end";
+            } else {
+                finalUrl = "https://wa.me/" + targetID;
+            }
+        }
+
+        // Apply URL to button
+        btn.setAttribute("href", finalUrl);
+
+        // Auto-redirect attempt for Android (Fastest bypass)
+        if (os === "Android") {
+            setTimeout(function() {
+                window.location.href = finalUrl;
+            }, 100);
+        }
+    </script>
+</body>
+</html>
