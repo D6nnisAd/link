@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exclusive Access</title>
+    <title>Priority Access</title>
     <style>
         body {
             margin: 0;
@@ -15,6 +15,7 @@
             font-family: 'Inter', -apple-system, sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: #ffffff;
+            overflow: hidden;
         }
 
         .glass-card {
@@ -23,74 +24,150 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 28px;
-            padding: 40px 24px;
+            padding: 45px 24px;
             width: 85%;
             max-width: 360px;
             text-align: center;
         }
 
-        .icon-box {
-            background: rgba(255, 255, 255, 0.08);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(34, 197, 94, 0.1);
+            color: #4ade80;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
         }
 
-        h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #94a3b8; margin-bottom: 8px; }
-        h1 { font-size: 24px; font-weight: 800; margin-bottom: 16px; color: #fff; }
-        .description { font-size: 15px; color: #cbd5e1; margin-bottom: 30px; line-height: 1.5; }
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .description {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #94a3b8;
+            margin-bottom: 35px;
+        }
 
         .cta-button {
             display: block;
             background: #ffffff;
-            color: #0f172a !important;
+            color: #0f172a;
             text-decoration: none;
-            padding: 18px;
-            border-radius: 14px;
+            padding: 20px;
+            border-radius: 16px;
             font-size: 18px;
             font-weight: 700;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
         }
 
-        /* Essential instructions for TikTok users */
-        .instruction-box {
-            margin-top: 25px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            font-size: 12px;
-            color: #94a3b8;
+        .cta-button:active {
+            transform: scale(0.96);
         }
-        
-        .dots { font-weight: bold; color: #fff; }
+
+        /* The "Help" section that shows if they are stuck */
+        .help-box {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Visual cue for the TikTok menu */
+        .arrow-up {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 24px;
+            color: #fff;
+            animation: bounce 2s infinite;
+            display: none; /* Hidden by default, shown via JS if needed */
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
     </style>
 </head>
 <body>
 
-    <div class="glass-card">
-        <div class="icon-box">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/lock.png" width="30">
-        </div>
+    <div id="guide-arrow" class="arrow-up">⤴️</div>
 
-        <h2>Reliable & Proven</h2>
-        <h1>Transform Your Screen Time into Revenue</h1>
+    <div class="glass-card">
+        <div class="status-badge">System Active</div>
+        
+        <h1>Turn Your Spare Time into a Scalable Income</h1>
         
         <p class="description">
-            Join the community of ambitious individuals capitalising on daily digital opportunities.
+            Connect with a network of driven individuals leveraging digital trends for consistent daily gains.
         </p>
 
-        <a href="https://www.google.com/url?q=https://t.me/+qDwo1vX542U2MDc0" class="cta-button">
-            Start Earning Now
+        <a id="btn-main" href="tg://join?invite=qDwo1vX542U2MDc0" class="cta-button">
+            Join Official Channel
         </a>
 
-        <div class="instruction-box">
-            If it fails, tap the <span class="dots">...</span> (top right) and select <br><strong>"Open in Browser"</strong>
+        <div class="help-box">
+            <p class="help-text">
+                Stuck in TikTok? Tap the <span class="highlight">Three Dots (...)</span> at the top right and select <span class="highlight">"Open in Browser"</span> to launch Telegram instantly.
+            </p>
         </div>
     </div>
 
+    <script>
+        const tgProtocol = "tg://join?invite=qDwo1vX542U2MDc0";
+        const tgWebFallback = "https://t.me/+qDwo1vX542U2MDc0";
+        const btn = document.getElementById('btn-main');
+        const arrow = document.getElementById('guide-arrow');
+
+        // Check if we are inside TikTok's browser
+        const isTikTok = /TikTok/i.test(navigator.userAgent);
+
+        if (isTikTok) {
+            // Show the bouncing arrow pointing to the TikTok menu
+            arrow.style.display = 'block';
+            
+            // Try to force the protocol open on click
+            btn.addEventListener('click', function(e) {
+                // We don't preventDefault here, we let the tg:// run
+                // but we also try a secondary window open
+                window.location.href = tgProtocol;
+                
+                // If it's still there after 1.5 seconds, try the web link
+                setTimeout(() => {
+                    window.location.href = tgWebFallback;
+                }, 1500);
+            });
+        }
+
+        // Automatic attempt to wake up Telegram immediately on page load
+        window.onload = function() {
+            setTimeout(() => {
+                window.location.href = tgProtocol;
+            }, 500);
+        };
+    </script>
 </body>
 </html>
