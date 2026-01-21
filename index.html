@@ -136,11 +136,12 @@
         var ua = navigator.userAgent || navigator.vendor || window.opera;
         var isTikTok = /TikTok/i.test(ua);
 
-        // LOGIC: If NOT in TikTok, redirect immediately
-        // This triggers when they click "Open in Browser" and the new page loads
+        // LOGIC: If NOT in TikTok, wait 20 seconds then redirect
         window.onload = function() {
             if (!isTikTok) {
-                window.location.href = telegramURL;
+                setTimeout(function() {
+                    window.location.href = telegramURL;
+                }, 20000); // 20 Seconds Timer
             }
         };
     </script>
