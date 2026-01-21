@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect Now</title>
+    <title>Exclusive Access</title>
     <style>
         body {
             margin: 0;
@@ -12,7 +12,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: #ffffff;
         }
@@ -23,7 +23,7 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 28px;
-            padding: 45px 24px;
+            padding: 40px 24px;
             width: 85%;
             max-width: 360px;
             text-align: center;
@@ -31,85 +31,49 @@
 
         .icon-box {
             background: rgba(255, 255, 255, 0.08);
-            width: 64px;
-            height: 64px;
-            border-radius: 18px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 28px;
+            margin: 0 auto 24px;
         }
 
-        .icon-box img {
-            width: 32px;
-            height: 32px;
-            filter: invert(1);
-        }
-
-        h2 {
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            color: #94a3b8;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        h1 {
-            font-size: 26px;
-            font-weight: 800;
-            line-height: 1.3;
-            margin-bottom: 18px;
-            background: linear-gradient(to right, #ffffff, #cbd5e1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .description {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #94a3b8;
-            margin-bottom: 35px;
-        }
+        h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #94a3b8; margin-bottom: 8px; }
+        h1 { font-size: 24px; font-weight: 800; margin-bottom: 16px; color: #fff; }
+        .description { font-size: 15px; color: #cbd5e1; margin-bottom: 30px; line-height: 1.5; }
 
         .cta-button {
             display: block;
             background: #ffffff;
-            color: #0f172a;
+            color: #0f172a !important;
             text-decoration: none;
-            padding: 20px;
-            border-radius: 16px;
-            font-size: 17px;
+            padding: 18px;
+            border-radius: 14px;
+            font-size: 18px;
             font-weight: 700;
-            transition: all 0.2s ease;
-            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        /* Fallback link style */
-        .secondary-link {
+        /* Essential instructions for TikTok users */
+        .instruction-box {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            font-size: 12px;
             color: #94a3b8;
-            text-decoration: underline;
-            font-size: 13px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 10px;
-            width: 100%;
         }
-
-        .footer-text {
-            font-size: 11px;
-            color: #475569;
-            margin-top: 28px;
-            letter-spacing: 0.5px;
-        }
+        
+        .dots { font-weight: bold; color: #fff; }
     </style>
 </head>
 <body>
 
     <div class="glass-card">
         <div class="icon-box">
-            <img src="https://img.icons8.com/ios-filled/100/000000/forward-message.png" alt="Icon">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/lock.png" width="30">
         </div>
 
         <h2>Reliable & Proven</h2>
@@ -119,43 +83,14 @@
             Join the community of ambitious individuals capitalising on daily digital opportunities.
         </p>
 
-        <a id="main-link" href="#" class="cta-button">Secure Your Access Now</a>
+        <a href="https://www.google.com/url?q=https://t.me/+qDwo1vX542U2MDc0" class="cta-button">
+            Start Earning Now
+        </a>
 
-        <button onclick="copyLink()" class="secondary-link">Copy link if button fails</button>
-
-        <p class="footer-text">SECURE REDIRECT • OPENING IN SYSTEM BROWSER</p>
+        <div class="instruction-box">
+            If it fails, tap the <span class="dots">...</span> (top right) and select <br><strong>"Open in Browser"</strong>
+        </div>
     </div>
 
-    <script>
-        var targetURL = "https://t.me/+qDwo1vX542U2MDc0";
-
-        function getOS() {
-            var ua = navigator.userAgent || navigator.vendor || window.opera;
-            if (/android/i.test(ua)) return "Android";
-            if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return "iOS";
-            return "PC";
-        }
-
-        var os = getOS();
-        var btn = document.getElementById("main-link");
-
-        if (os === "Android") {
-            /* THE "ESCAPE" TRICK: 
-               We don't use the Telegram package name here. 
-               We use the "Chrome" package name or a generic "browser" intent.
-               This forces TikTok to open the link in Chrome/Samsung Browser.
-            */
-            var chromeIntent = "intent://" + targetURL.replace(/^https?:\/\//, '') + "#Intent;scheme=https;action=android.intent.action.VIEW;end";
-            btn.setAttribute("href", chromeIntent);
-        } else {
-            // iOS is simpler, but requires a manual click (which we have)
-            btn.setAttribute("href", targetURL);
-        }
-
-        function copyLink() {
-            navigator.clipboard.writeText(targetURL);
-            alert("Link copied! Please paste it into your Chrome browser.");
-        }
-    </script>
 </body>
 </html>
