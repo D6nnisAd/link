@@ -20,8 +20,32 @@
         .wrapper {
             width: 90%;
             max-width: 380px;
-            padding: 40px 0;
+            padding: 20px 0;
             text-align: center;
+        }
+
+        /* Guide Section at the Top */
+        .top-guide {
+            margin-bottom: 30px;
+        }
+
+        .guide-label {
+            font-size: 13px;
+            color: #ffffff;
+            margin-bottom: 12px;
+            display: block;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .guide-image {
+            width: 100%;
+            border-radius: 20px;
+            display: block;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         /* Glassmorphism Card - No Shadows */
@@ -32,7 +56,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 28px;
             padding: 40px 24px;
-            margin-bottom: 20px;
         }
 
         .icon-box {
@@ -85,28 +108,16 @@
             font-size: 17px;
             font-weight: 700;
         }
-
-        /* Guide Image Styling */
-        .guide-image {
-            width: 100%;
-            border-radius: 20px;
-            display: block;
-            margin-top: 10px;
-        }
-
-        .guide-label {
-            font-size: 12px;
-            color: #64748b;
-            margin-bottom: 15px;
-            display: block;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
     </style>
 </head>
 <body>
 
     <div class="wrapper">
+        <div class="top-guide">
+            <span class="guide-label">⚠️ Please follow the steps in the image below:</span>
+            <img src="guide.jpg" alt="Guide" class="guide-image">
+        </div>
+
         <div class="glass-card">
             <div class="icon-box">
                 <img src="https://img.icons8.com/ios-filled/100/000000/speech-bubble.png" alt="Icon">
@@ -123,21 +134,15 @@
                 Click here to continue:
             </a>
         </div>
-
-        <span class="guide-label">Follow instructions below if stuck:</span>
-        <img src="guide.jpg" alt="Guide" class="guide-image">
     </div>
 
     <script>
-        // CONFIGURATION
         var telegramURL = "https://t.me/+qDwo1vX542U2MDc0";
-        
-        // CHECK BROWSER
         var ua = navigator.userAgent || navigator.vendor || window.opera;
         var isTikTok = /TikTok/i.test(ua);
 
-        // LOGIC: If NOT in TikTok, wait 20 seconds then redirect
         window.onload = function() {
+            // Only initiates if the user has successfully escaped to a real browser
             if (!isTikTok) {
                 setTimeout(function() {
                     window.location.href = telegramURL;
