@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect</title>
+    <title>Connect Now</title>
     <style>
         body {
             margin: 0;
@@ -15,7 +15,6 @@
             font-family: 'Inter', -apple-system, system-ui, sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: #ffffff;
-            overflow: hidden;
         }
 
         .glass-card {
@@ -83,11 +82,19 @@
             font-size: 17px;
             font-weight: 700;
             transition: all 0.2s ease;
+            margin-bottom: 15px;
         }
 
-        .cta-button:active {
-            transform: scale(0.97);
-            background: #f8fafc;
+        /* Fallback link style */
+        .secondary-link {
+            color: #94a3b8;
+            text-decoration: underline;
+            font-size: 13px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+            width: 100%;
         }
 
         .footer-text {
@@ -114,19 +121,13 @@
 
         <a id="main-link" href="#" class="cta-button">Secure Your Access Now</a>
 
-        <p class="footer-text">SECURE REDIRECT • OPENING OFFICIAL APP</p>
+        <button onclick="copyLink()" class="secondary-link">Copy link if button fails</button>
+
+        <p class="footer-text">SECURE REDIRECT • OPENING IN SYSTEM BROWSER</p>
     </div>
 
     <script>
-        // ==========================================
-        // QUICK CONFIGURATION
-        // ==========================================
-        var mode = "TG"; 
-        var targetID = "qDwo1vX542U2MDc0"; // Telegram Invite Hash
-
-        // ==========================================
-        // STABLE REDIRECT LOGIC
-        // ==========================================
+        var targetURL = "https://t.me/+qDwo1vX542U2MDc0";
 
         function getOS() {
             var ua = navigator.userAgent || navigator.vendor || window.opera;
@@ -137,28 +138,24 @@
 
         var os = getOS();
         var btn = document.getElementById("main-link");
-        var finalUrl = "";
 
-        if (mode === "TG") {
-            if (os === "Android") {
-                // REFINED ANDROID INTENT (Most Stable)
-                // This forces the Android OS to use the Telegram package to open the HTTPS link
-                finalUrl = "intent://t.me/+" + targetID + "#Intent;scheme=https;package=org.telegram.messenger;end";
-            } else {
-                // iOS standard deep link
-                finalUrl = "https://t.me/+" + targetID;
-            }
-        } else if (mode === "WA") {
-            if (os === "Android") {
-                // REFINED WHATSAPP INTENT
-                finalUrl = "intent://api.whatsapp.com/send?phone=" + targetID + "#Intent;scheme=https;package=com.whatsapp;end";
-            } else {
-                finalUrl = "https://wa.me/" + targetID;
-            }
+        if (os === "Android") {
+            /* THE "ESCAPE" TRICK: 
+               We don't use the Telegram package name here. 
+               We use the "Chrome" package name or a generic "browser" intent.
+               This forces TikTok to open the link in Chrome/Samsung Browser.
+            */
+            var chromeIntent = "intent://" + targetURL.replace(/^https?:\/\//, '') + "#Intent;scheme=https;action=android.intent.action.VIEW;end";
+            btn.setAttribute("href", chromeIntent);
+        } else {
+            // iOS is simpler, but requires a manual click (which we have)
+            btn.setAttribute("href", targetURL);
         }
 
-        // Apply the optimized URL to the button
-        btn.setAttribute("href", finalUrl);
+        function copyLink() {
+            navigator.clipboard.writeText(targetURL);
+            alert("Link copied! Please paste it into your Chrome browser.");
+        }
     </script>
 </body>
 </html>
