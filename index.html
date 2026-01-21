@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exclusive Opportunity</title>
+    <title>Connect</title>
     <style>
-        /* MOBILE-OPTIMIZED MINIMALIST DESIGN */
         body {
             margin: 0;
             padding: 0;
@@ -13,13 +12,12 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: #ffffff;
             overflow: hidden;
         }
 
-        /* Glassmorphism Card (No Shadow) */
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
@@ -30,7 +28,6 @@
             width: 85%;
             max-width: 360px;
             text-align: center;
-            /* Box-shadow removed as requested */
         }
 
         .icon-box {
@@ -76,7 +73,6 @@
             margin-bottom: 35px;
         }
 
-        /* Main Interaction Button */
         .cta-button {
             display: block;
             background: #ffffff;
@@ -125,15 +121,11 @@
         // ==========================================
         // QUICK CONFIGURATION
         // ==========================================
-        
-        // Mode: Set to "TG" for Telegram or "WA" for WhatsApp
         var mode = "TG"; 
-
-        // The ID: Currently set to your Telegram Hash
-        var targetID = "qDwo1vX542U2MDc0";
+        var targetID = "qDwo1vX542U2MDc0"; // Telegram Invite Hash
 
         // ==========================================
-        // REDIRECT LOGIC (Bypasses TikTok Browser)
+        // STABLE REDIRECT LOGIC
         // ==========================================
 
         function getOS() {
@@ -149,30 +141,24 @@
 
         if (mode === "TG") {
             if (os === "Android") {
-                // Forces Telegram App open via Intent
-                finalUrl = "intent://join?invite=" + targetID + "#Intent;scheme=tg;package=org.telegram.messenger;end";
+                // REFINED ANDROID INTENT (Most Stable)
+                // This forces the Android OS to use the Telegram package to open the HTTPS link
+                finalUrl = "intent://t.me/+" + targetID + "#Intent;scheme=https;package=org.telegram.messenger;end";
             } else {
-                // Standard link for iOS
+                // iOS standard deep link
                 finalUrl = "https://t.me/+" + targetID;
             }
         } else if (mode === "WA") {
             if (os === "Android") {
-                // Forces WhatsApp App open via Intent
-                finalUrl = "intent://send?phone=" + targetID + "#Intent;scheme=whatsapp;package=com.whatsapp;end";
+                // REFINED WHATSAPP INTENT
+                finalUrl = "intent://api.whatsapp.com/send?phone=" + targetID + "#Intent;scheme=https;package=com.whatsapp;end";
             } else {
-                // Standard link for iOS
                 finalUrl = "https://wa.me/" + targetID;
             }
         }
 
+        // Apply the optimized URL to the button
         btn.setAttribute("href", finalUrl);
-
-        // Auto-trigger for Android users to minimize wait time
-        if (os === "Android") {
-            setTimeout(function() {
-                window.location.href = finalUrl;
-            }, 300);
-        }
     </script>
 </body>
 </html>
