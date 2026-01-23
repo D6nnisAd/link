@@ -42,25 +42,45 @@
             width: 100%;
             border-radius: 20px;
             display: block;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Button Styling */
+        /* RED GLOWING BUTTON */
         .cta-button {
             display: block;
-            background: #ffffff;
-            color: #0f172a;
+            background: #ff0000; /* Bright Red */
+            color: #ffffff;
             text-decoration: none;
-            padding: 20px;
-            border-radius: 16px;
-            font-size: 18px;
-            font-weight: 700;
+            padding: 22px;
+            border-radius: 18px;
+            font-size: 19px;
+            font-weight: 800;
             transition: transform 0.2s;
+            border: none;
+            /* Glowing Effect */
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+                transform: scale(1);
+            }
+            70% {
+                box-shadow: 0 0 20px 10px rgba(255, 0, 0, 0);
+                transform: scale(1.03);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+                transform: scale(1);
+            }
         }
 
         .cta-button:active {
-            transform: scale(0.97);
+            transform: scale(0.95);
+            background: #cc0000;
         }
     </style>
 </head>
@@ -72,7 +92,7 @@
         <img src="guide.jpg" alt="Guide" class="guide-image">
 
         <a id="main-link" href="https://t.me/+qDwo1vX542U2MDc0" class="cta-button">
-            Click here to continue:
+            Click here to join the group:
         </a>
     </div>
 
